@@ -1,0 +1,10 @@
+20:34:44 **** Incremental Build of configuration Debug for project stm32f407_FreeRTOS_Hall ****
+make -j8 all 
+arm-none-eabi-size  stm32f407_FreeRTOS_Hall.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16200	     20	  78796	  95016	  17328	stm32f407_FreeRTOS_Hall.elf
+Finished building: default.size.stdout
+ 
+
+20:34:45 Build Finished. 0 errors, 0 warnings. (took 449ms)
+

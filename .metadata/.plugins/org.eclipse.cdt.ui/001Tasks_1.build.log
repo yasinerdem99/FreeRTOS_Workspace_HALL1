@@ -1,0 +1,58 @@
+21:12:21 **** Incremental Build of configuration Debug for project 001Tasks_1 ****
+make -j8 all 
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/portcomn.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/portcomn.d" -MT"ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/portcomn.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/portcomn.o"
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.d" -MT"ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.o"
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.d" -MT"ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.o"
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/Tick.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/Tick.d" -MT"ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/Tick.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/Tick.o"
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.d" -MT"ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.o"
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/WizC/PIC18/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/WizC/PIC18/port.d" -MT"ThirdParty/FreeRTOS/portable/WizC/PIC18/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/WizC/PIC18/port.o"
+arm-none-eabi-gcc "../ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/portable/MemMang" -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS" -I../Core/Inc -I"C:/Users/LENOVO/Desktop/FreeRTOS_Workspace/001Tasks_1/ThirdParty/FreeRTOS/License" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/port.d" -MT"ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/port.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/portasm.d" -MT"ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/portasm.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/portasm.o" "../ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/portasm.S"
+../ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/portcomn.c:48:10: fatal error: FreeRTOS.h: No such file or directory
+   48 | #include "FreeRTOS.h"
+      |          ^~~~~~~~~~~~
+../ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/Tick.c:39:10: fatal error: FreeRTOS.h: No such file or directory
+   39 | #include <FreeRTOS.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+compilation terminated.
+../ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.c:52:10: fatal error: i86.h: No such file or directory
+   52 | #include <i86.h>
+      |          ^~~~~~~
+compilation terminated.
+../ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.c:53:10: fatal error: i86.h: No such file or directory
+   53 | #include <i86.h>
+      |          ^~~~~~~
+compilation terminated.
+../ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.c:51:1: error: expected identifier or '(' before '{' token
+   51 | {
+      | ^
+../ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.c:76: warning: ignoring '#pragma wizcpp uselib' [-Wunknown-pragmas]
+   76 | #pragma wizcpp uselib     "$__PATHNAME__/Tick.c"
+      | 
+../ThirdParty/FreeRTOS/portable/WizC/PIC18/port.c:44:10: fatal error: FreeRTOS.h: No such file or directory
+   44 | #include <FreeRTOS.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+make: *** [ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/subdir.mk:22: ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/Tick.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/subdir.mk:19: ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.o] Error 1
+make: *** [ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/subdir.mk:19: ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.o] Error 1
+make: *** [ThirdParty/FreeRTOS/portable/WizC/PIC18/subdir.mk:19: ThirdParty/FreeRTOS/portable/WizC/PIC18/port.o] Error 1
+make: *** [ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/subdir.mk:22: ThirdParty/FreeRTOS/portable/WizC/PIC18/Drivers/Tick/isrTick.o] Error 1
+make: *** [ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/subdir.mk:19: ThirdParty/FreeRTOS/portable/oWatcom/16BitDOS/common/portcomn.o] Error 1
+In file included from ../ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/portasm.S:25:
+../ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/xtensa_rtos.h:47:13: fatal error: xtensa/coreasm.h: No such file or directory
+   47 | #include    <xtensa/coreasm.h>
+      |             ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+../ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/port.c:54:10: fatal error: xtensa/config/core.h: No such file or directory
+   54 | #include <xtensa/config/core.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/subdir.mk:47: ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/port.o] Error 1
+make: *** [ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/subdir.mk:49: ThirdParty/FreeRTOS/portable/ThirdParty/XCC/Xtensa/portasm.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+21:12:27 Build Failed. 17 errors, 1 warnings. (took 5s.895ms)
+
