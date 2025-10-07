@@ -268,7 +268,7 @@ void gorev2(void const * argument)
 	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
 	    osDelay(500);*/
 
-	  printf("1.YASIIN_123\r\n");
+	  printf("1.YASIIN\r\n");
 	  osDelay(500);
   }
   /* USER CODE END 5 */
