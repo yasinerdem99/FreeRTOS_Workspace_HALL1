@@ -7,19 +7,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00004470  08000190  08000190  00001190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000080  08004600  08004600  00005600  2**2
+  2 .rodata       00000084  08004600  08004600  00005600  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08004680  08004680  0000606c  2**0
+  3 .ARM.extab    00000000  08004684  08004684  0000606c  2**0
                   CONTENTS
-  4 .ARM          00000008  08004680  08004680  00005680  2**2
+  4 .ARM          00000008  08004684  08004684  00005684  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08004688  08004688  0000606c  2**0
+  5 .preinit_array 00000000  0800468c  0800468c  0000606c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08004688  08004688  00005688  2**2
+  6 .init_array   00000004  0800468c  0800468c  0000568c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  0800468c  0800468c  0000568c  2**2
+  7 .fini_array   00000004  08004690  08004690  00005690  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         0000006c  20000000  08004690  00006000  2**2
+  8 .data         0000006c  20000000  08004694  00006000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  0000606c  2**0
                   CONTENTS
@@ -748,13 +748,13 @@ void gorev2(void const * argument)
 	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
 	    osDelay(500);*/
 
-	  printf("1.YASIIN\r\n");
+	  printf("1.YASIIN_123\r\n");
  80006e4:	4804      	ldr	r0, [pc, #16]	@ (80006f8 <gorev2+0x1c>)
  80006e6:	f003 fb95 	bl	8003e14 <puts>
 	  osDelay(500);
  80006ea:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
  80006ee:	f002 f85a 	bl	80027a6 <osDelay>
-	  printf("1.YASIIN\r\n");
+	  printf("1.YASIIN_123\r\n");
  80006f2:	bf00      	nop
  80006f4:	e7f6      	b.n	80006e4 <gorev2+0x8>
  80006f6:	bf00      	nop
@@ -786,7 +786,7 @@ void gorev1(void const * argument)
  8000712:	bf00      	nop
  8000714:	e7f6      	b.n	8000704 <gorev1+0x8>
  8000716:	bf00      	nop
- 8000718:	08004654 	.word	0x08004654
+ 8000718:	08004658 	.word	0x08004658
 
 0800071c <HAL_TIM_PeriodElapsedCallback>:
   * a global variable "uwTick" used as application time base.
@@ -1618,7 +1618,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8000ad8:	2000006c 	.word	0x2000006c
   ldr r2, =_sidata
- 8000adc:	08004690 	.word	0x08004690
+ 8000adc:	08004694 	.word	0x08004694
   ldr r2, =_sbss
  8000ae0:	2000006c 	.word	0x2000006c
   ldr r4, =_ebss
@@ -3785,7 +3785,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
  8001712:	bf00      	nop
  8001714:	40023c00 	.word	0x40023c00
  8001718:	40023800 	.word	0x40023800
- 800171c:	08004668 	.word	0x08004668
+ 800171c:	0800466c 	.word	0x0800466c
  8001720:	20000000 	.word	0x20000000
  8001724:	20000004 	.word	0x20000004
 
@@ -4042,7 +4042,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  80018e8:	4618      	mov	r0, r3
  80018ea:	bd80      	pop	{r7, pc}
  80018ec:	40023800 	.word	0x40023800
- 80018f0:	08004678 	.word	0x08004678
+ 80018f0:	0800467c 	.word	0x0800467c
 
 080018f4 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -4068,7 +4068,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8001910:	4618      	mov	r0, r3
  8001912:	bd80      	pop	{r7, pc}
  8001914:	40023800 	.word	0x40023800
- 8001918:	08004678 	.word	0x08004678
+ 8001918:	0800467c 	.word	0x0800467c
 
 0800191c <HAL_RCC_GetClockConfig>:
   * will be configured.
@@ -7609,7 +7609,7 @@ BaseType_t xReturn;
  8002dae:	3718      	adds	r7, #24
  8002db0:	46bd      	mov	sp, r7
  8002db2:	bd80      	pop	{r7, pc}
- 8002db4:	08004660 	.word	0x08004660
+ 8002db4:	08004664 	.word	0x08004664
  8002db8:	08003169 	.word	0x08003169
  8002dbc:	200004ec 	.word	0x200004ec
  8002dc0:	200003c8 	.word	0x200003c8
@@ -10819,10 +10819,10 @@ uint8_t *puc;
  800415a:	4798      	blx	r3
  800415c:	3601      	adds	r6, #1
  800415e:	e7f2      	b.n	8004146 <__libc_init_array+0x1e>
- 8004160:	08004688 	.word	0x08004688
- 8004164:	08004688 	.word	0x08004688
- 8004168:	08004688 	.word	0x08004688
- 800416c:	0800468c 	.word	0x0800468c
+ 8004160:	0800468c 	.word	0x0800468c
+ 8004164:	0800468c 	.word	0x0800468c
+ 8004168:	0800468c 	.word	0x0800468c
+ 800416c:	08004690 	.word	0x08004690
 
 08004170 <__retarget_lock_init_recursive>:
  8004170:	4770      	bx	lr
