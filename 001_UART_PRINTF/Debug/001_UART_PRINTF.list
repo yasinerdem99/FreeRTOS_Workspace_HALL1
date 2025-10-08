@@ -773,13 +773,13 @@ void gorev2(void const * argument)
 	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
 	    osDelay(500);*/
 
-	  printf("barkin\r\n");
+	  printf("erdem\r\n");
  8000720:	4804      	ldr	r0, [pc, #16]	@ (8000734 <gorev2+0x1c>)
  8000722:	f003 fb97 	bl	8003e54 <puts>
 	  osDelay(500);
  8000726:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
  800072a:	f002 f85a 	bl	80027e2 <osDelay>
-	  printf("barkin\r\n");
+	  printf("erdem\r\n");
  800072e:	bf00      	nop
  8000730:	e7f6      	b.n	8000720 <gorev2+0x8>
  8000732:	bf00      	nop
@@ -801,13 +801,13 @@ void gorev1(void const * argument)
 	  /*uint8_t txt1[] = "Text from Task 02\r\n";
 	  	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
 	  	    osDelay(500);*/
-	  printf("ili\r\n");
+	  printf("yasin\r\n");
  8000740:	4804      	ldr	r0, [pc, #16]	@ (8000754 <gorev1+0x1c>)
  8000742:	f003 fb87 	bl	8003e54 <puts>
 	  osDelay(500);
  8000746:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
  800074a:	f002 f84a 	bl	80027e2 <osDelay>
-	  printf("ili\r\n");
+	  printf("yasin\r\n");
  800074e:	bf00      	nop
  8000750:	e7f6      	b.n	8000740 <gorev1+0x8>
  8000752:	bf00      	nop

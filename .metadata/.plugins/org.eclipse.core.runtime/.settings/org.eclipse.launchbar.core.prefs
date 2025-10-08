@@ -9,3 +9,4 @@ org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_Led_Control_With_Button\ De
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_Led_Control_With_Button\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_UART_PRINTF\ Debug/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_UART_PRINTF\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:003_led_control_exti\ Debug/activeLaunchMode=debug

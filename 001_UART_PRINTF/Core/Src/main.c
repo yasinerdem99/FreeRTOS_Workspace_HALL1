@@ -268,7 +268,7 @@ void gorev2(void const * argument)
 	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
 	    osDelay(500);*/
 
-	  printf("barkin\r\n");
+	  printf("erdem\r\n");
 	  osDelay(500);
   }
   /* USER CODE END 5 */
@@ -290,7 +290,7 @@ void gorev1(void const * argument)
 	  /*uint8_t txt1[] = "Text from Task 02\r\n";
 	  	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
 	  	    osDelay(500);*/
-	  printf("ili\r\n");
+	  printf("yasin\r\n");
 	  osDelay(500);
   }
   /* USER CODE END gorev1 */

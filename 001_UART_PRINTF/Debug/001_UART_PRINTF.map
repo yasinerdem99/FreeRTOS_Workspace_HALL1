@@ -4736,8 +4736,8 @@ LOAD C:/ST/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 .rodata         0x08004650       0x78
                 0x08004650                        . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x08004650       0x55 ./Core/Src/main.o
- *fill*         0x080046a5        0x3 
+ .rodata        0x08004650       0x57 ./Core/Src/main.o
+ *fill*         0x080046a7        0x1 
  .rodata        0x080046a8        0x5 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  *(.rodata*)
  *fill*         0x080046ad        0x3 
