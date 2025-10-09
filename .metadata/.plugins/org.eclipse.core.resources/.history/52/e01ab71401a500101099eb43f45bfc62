@@ -302,7 +302,7 @@ void gorev2(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  printf(CLR_LINE  "runningg\r\n");
+	  printf(CLR_LINE  "running\r\n");
 	  osDelay(500);
 
 	  HAL_UART_Receive(&huart2, rxData, 20, 1000);

@@ -900,7 +900,7 @@ void gorev2(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  printf(CLR_LINE  "running\r\n");
+	  printf(CLR_LINE  "runningg\r\n");
  8000854:	481d      	ldr	r0, [pc, #116]	@ (80008cc <gorev2+0xa0>)
  8000856:	f003 fcd1 	bl	80041fc <puts>
 	  osDelay(500);
