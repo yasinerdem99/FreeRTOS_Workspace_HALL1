@@ -1,4 +1,4 @@
-14:10:44 **** Incremental Build of configuration Debug for project 001_UART_PRINTF ****
+14:12:51 **** Incremental Build of configuration Debug for project 001_UART_PRINTF ****
 make -j12 all 
 arm-none-eabi-size  001_UART_PRINTF.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  001_UART_PRINTF.elf
 Finished building: default.size.stdout
  
 
-14:10:44 Build Finished. 0 errors, 0 warnings. (took 673ms)
+14:12:52 Build Finished. 0 errors, 0 warnings. (took 678ms)
 
