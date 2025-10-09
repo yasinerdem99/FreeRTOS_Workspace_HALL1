@@ -64,8 +64,8 @@ all: main-build
 main-build: 003_led_control_exti.elf secondary-outputs
 
 # Tool invocations
-003_led_control_exti.elf 003_led_control_exti.map: $(OBJS) $(USER_OBJS) C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\003_led_control_exti\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "003_led_control_exti.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\003_led_control_exti\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003_led_control_exti.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+003_led_control_exti.elf 003_led_control_exti.map: $(OBJS) $(USER_OBJS) C:\Users\LENOVO\Desktop\FreeRTOS_Workspace\003_led_control_exti\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "003_led_control_exti.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\LENOVO\Desktop\FreeRTOS_Workspace\003_led_control_exti\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003_led_control_exti.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

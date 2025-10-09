@@ -1,0 +1,10 @@
+08:19:18 **** Incremental Build of configuration Debug for project 004_usart_receive ****
+make -j12 all 
+arm-none-eabi-size  004_usart_receive.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11044	     12	   1660	  12716	   31ac	004_usart_receive.elf
+Finished building: default.size.stdout
+ 
+
+08:19:19 Build Finished. 0 errors, 0 warnings. (took 658ms)
+

@@ -31,10 +31,24 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
+#define RED  "\x1B[31m"
+#define GRN  "\x1B[32m"
+
+#define RST  "\033[0m"
+#define CLR_LINE "\r\033[K"
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#ifndef STDOUT_FILENO
+#define STDOUT_FILENO 1
+#endif
+
+#ifndef STDERR_FILENO
+#define STDERR_FILENO 2
+#endif
 
 /* USER CODE END PD */
 
@@ -49,6 +63,9 @@ UART_HandleTypeDef huart2;
 osThreadId task2Handle;
 osThreadId task1Handle;
 /* USER CODE BEGIN PV */
+
+	uint8_t rxData[20];
+	HAL_StatusTypeDef status;
 
 /* USER CODE END PV */
 
@@ -68,7 +85,24 @@ void gorev1(void const * argument);
 
 int _write(int file, char *ptr, int len)
 {
-	HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+	if(file==STDERR_FILENO)
+	{
+		HAL_UART_Transmit(&huart2, (uint8_t*)RED, strlen(RED) , HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t*)RST, strlen(RST) , HAL_MAX_DELAY);
+	}
+
+	else if(file==STDOUT_FILENO)
+	{
+		HAL_UART_Transmit(&huart2, (uint8_t*)GRN, strlen(GRN) , HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t*)RST, strlen(GRN) , HAL_MAX_DELAY);
+	}
+	else
+	{
+		HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+
+	}
 	return len;
 }
 
@@ -260,16 +294,30 @@ static void MX_GPIO_Init(void)
 void gorev2(void const * argument)
 {
   /* USER CODE BEGIN 5 */
+
+	fprintf(stdout,"system initialized\r\n");
+
+	fprintf(stderr, "error\r\n");
+
   /* Infinite loop */
   for(;;)
   {
-
-	 /* uint8_t txt1[] = "Text from Task 01\r\n";
-	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
-	    osDelay(500);*/
-
-	  printf("erdem\r\n");
+	  printf(CLR_LINE  "running\r\n");
 	  osDelay(500);
+
+	  HAL_UART_Receive(&huart2, rxData, 20, 1000);
+
+	  uint8_t ch;
+	  if (HAL_UART_Receive(&huart2, &ch, 1, 1000) == HAL_OK)
+	  {
+	      fprintf(stdout ,"receive chr: %c\r\n", ch);
+	  }
+	  else if (HAL_UART_Receive(&huart2, &ch, 20, 1000) != HAL_OK)
+	  {
+	      fprintf(stderr, "failed!\r\n");
+	  }
+
+
   }
   /* USER CODE END 5 */
 }
@@ -287,9 +335,7 @@ void gorev1(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  /*uint8_t txt1[] = "Text from Task 02\r\n";
-	  	  HAL_UART_Transmit(&huart2, txt1, sizeof(txt1), 500);
-	  	    osDelay(500);*/
+
 	  printf("yasin\r\n");
 	  osDelay(500);
   }
