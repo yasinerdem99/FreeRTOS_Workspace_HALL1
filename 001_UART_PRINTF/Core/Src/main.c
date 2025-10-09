@@ -50,10 +50,16 @@
 #define STDERR_FILENO 2
 #endif
 
+#ifndef STDIN_FILENO
+#define STDIN_FILENO 3
+#endif
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+
+uint8_t ch;
 
 /* USER CODE END PM */
 
@@ -103,6 +109,16 @@ int _write(int file, char *ptr, int len)
 		HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len , HAL_MAX_DELAY);
 
 	}
+	return len;
+}
+
+int _read(int file, char *ptr, int len)
+{
+	if(file==STDIN_FILENO)
+	{
+		HAL_UART_Receive(&huart2, (uint8_t*)rxData, 1, 1000);
+	}
+
 	return len;
 }
 
@@ -302,13 +318,12 @@ void gorev2(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  printf(CLR_LINE  "runningg\r\n");
+	  printf(CLR_LINE  "running\r\n");
 	  osDelay(500);
 
-	  HAL_UART_Receive(&huart2, rxData, 20, 1000);
+	  fscanf(stdin,	"%s",rxData);
 
-	  uint8_t ch;
-	  if (HAL_UART_Receive(&huart2, &ch, 1, 1000) == HAL_OK)
+	  if ((rxData) == "sa")
 	  {
 	      fprintf(stdout ,"receive chr: %c\r\n", ch);
 	  }
