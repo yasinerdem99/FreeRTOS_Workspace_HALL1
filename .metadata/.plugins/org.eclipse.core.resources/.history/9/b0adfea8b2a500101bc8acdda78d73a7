@@ -75,7 +75,7 @@ osThreadId task1Handle;
 	uint8_t rxData;
 	HAL_StatusTypeDef status;
 	char ch[6];
-	char input[3];
+	char input[20];
 
 /* USER CODE END PV */
 
@@ -343,7 +343,7 @@ void gorev2(void const * argument)
 	     {
 	         fprintf(stdout, "s alındı\r\n");
 	     }
-	else if(strlen(input)>0)
+	     else
 	     {
 	         fprintf(stderr, "gecersiz karakter: %s\r\n", input);
 	     }

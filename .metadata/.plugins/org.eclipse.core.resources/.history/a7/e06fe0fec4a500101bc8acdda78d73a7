@@ -75,7 +75,7 @@ osThreadId task1Handle;
 	uint8_t rxData;
 	HAL_StatusTypeDef status;
 	char ch[6];
-	char input[3];
+	char input[20];
 
 /* USER CODE END PV */
 

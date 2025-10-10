@@ -4,7 +4,7 @@
 ../Core/Src/main.c:227:6:SystemClock_Config	3
 ../Core/Src/main.c:269:13:MX_USART2_UART_Init	2
 ../Core/Src/main.c:302:13:MX_GPIO_Init	1
-../Core/Src/main.c:325:6:gorev2	3
+../Core/Src/main.c:325:6:gorev2	4
 ../Core/Src/main.c:362:6:gorev1	1
 ../Core/Src/main.c:383:6:HAL_TIM_PeriodElapsedCallback	2
 ../Core/Src/main.c:400:6:Error_Handler	1
