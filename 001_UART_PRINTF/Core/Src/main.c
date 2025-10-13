@@ -54,8 +54,6 @@
 #define STDERR_FILENO 2
 #endif
 
-
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -74,8 +72,7 @@ osThreadId task1Handle;
 
 	uint8_t rxData;
 	HAL_StatusTypeDef status;
-	char ch[6];
-	char input[3];
+	char input[10];
 
 /* USER CODE END PV */
 
@@ -120,20 +117,18 @@ int _read(int file, char *ptr, int len)
 {
     if (file == STDIN_FILENO)
     {
-        for (int i = 0; i < len; i++)
+        int i = 0;
+        char ch;
+        while (i < len - 1)
         {
-            // Her karakteri tek tek oku
-            HAL_UART_Receive(&huart2, (uint8_t*)&ptr[i], 1, HAL_MAX_DELAY);
-
-            // Enter (CR veya LF) gelirse bitir
-            if (ptr[i] == '\r' || ptr[i] == '\n')
-            {
-                ptr[i] = '\0'; // Satır sonunu null karakterle değiştir
-                break;
-            }
+            HAL_UART_Receive(&huart2, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
+            ptr[i++] = ch;
+            if (ch == '\n') break;
         }
+        ptr[i] = '\0'; // Null-terminate
+        return i;
     }
-    return len;
+    return 0;
 }
 
 
@@ -335,9 +330,12 @@ void gorev2(void const * argument)
   for(;;)
   {
 
-	memset(input, 0, sizeof(input)); // diziyi sıfırla
+	/*memset(input, 0, sizeof(input)); // diziyi sıfırla
 	fgets(input,sizeof(input),stdin);
 	input[strcspn(input, "\r\n")] = 0;
+	input[strcspn(input, "\r\n")] = '\0';
+
+	  HAL_UART_Receive(&huart2, (uint8_t*)&input, 1, HAL_MAX_DELAY);
 
 	if (strlen(input) == 1 && input[0] == 's')
 	     {
@@ -347,7 +345,38 @@ void gorev2(void const * argument)
 	     {
 	         fprintf(stderr, "gecersiz karakter: %s\r\n", input);
 	     }
+
+	osDelay(500);
+
+	  {*/
+	      fprintf(stdout, "UART fgets testi başladı\r\n");
+
+	      for (;;)
+	      {
+	          memset(input, 0, sizeof(input)); // diziyi sıfırla
+
+	          if (fgets(input, sizeof(input), stdin) != NULL)
+	          {
+	              input[strcspn(input, "\r\n")] = '\0'; // Satır sonunu temizle
+
+	              if (strcmp(input, "s") == 0)
+	              {
+	                  fprintf(stdout, "s alındı\r\n");
+	              }
+	              else
+	              {
+	                  fprintf(stderr, "geçersiz karakter: %s\r\n", input);
+	              }
+	          }
+	          else
+	          {
+	              fprintf(stderr, "Veri alınamadı\r\n");
+	          }
+
+	          osDelay(500);
+	      }
   }
+
 
   /* USER CODE END 5 */
 }
@@ -366,8 +395,8 @@ void gorev1(void const * argument)
   for(;;)
   {
 
-	  //printf("yasin\r\n");
-	  //osDelay(500);
+	  printf("yasin\r\n");
+	  osDelay(500);
   }
   /* USER CODE END gorev1 */
 }

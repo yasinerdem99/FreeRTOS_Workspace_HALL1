@@ -1,0 +1,74 @@
+/*
+ * Nokia5110.c
+ *
+ *  Created on: Oct 13, 2025
+ *      Author: stj.yerdem
+ */
+
+
+#include "Nokia5110.h"
+
+bool Nokia5110_Init(void)
+{
+	void Nokia5110_Reset();
+
+	if(!Nokia5110_Write(0x21, 0))
+		return false;
+	if(!Nokia5110_Write(0xC0, 0))
+		return false;
+	if(!Nokia5110_Write(0x07, 0))
+		return false;
+	if(!Nokia5110_Write(0x13, 0))
+		return false;
+	if(!Nokia5110_Write(0x20, 0))
+		return false;
+	if(!Nokia5110_Write(0x0C, 0))
+		return false;
+
+	return true;
+}
+
+void Nokia5110_Reset(void)
+{
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8, GPIO_PIN_RESET); //RESET pin is low
+	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8, GPIO_PIN_SET);   //RESET pin is high
+}
+
+bool Nokia5110_Write(uint8_t data , uint8_t mode)
+{
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);  //CE pin is low
+
+
+	if(mode ==0)
+	{
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET); // DC pin is low for data sent
+	}
+	else if (mode==1)
+	{
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET); // DC pin is high for command sent
+	}
+	else
+	{
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);  //CE pin is high
+		return false;
+	}
+
+	HAL_SPI_Transmit_DMA(&hspi2, &data, 1);
+
+	return true;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
