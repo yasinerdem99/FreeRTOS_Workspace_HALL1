@@ -54,6 +54,8 @@
 #define STDERR_FILENO 2
 #endif
 
+
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -72,6 +74,7 @@ osThreadId task1Handle;
 
 	uint8_t rxData;
 	HAL_StatusTypeDef status;
+	char ch[6];
 	char input[10];
 
 /* USER CODE END PV */
@@ -118,18 +121,35 @@ int _read(int file, char *ptr, int len)
     if (file == STDIN_FILENO)
     {
         int i = 0;
-        char ch;
+        uint8_t ch;
+
         while (i < len - 1)
         {
-            HAL_UART_Receive(&huart2, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
-            ptr[i++] = ch;
-            if (ch == '\n') break;
+            // 1 saniye zaman aşımı ile tek karakter oku
+            HAL_StatusTypeDef status = HAL_UART_Receive(&huart2, &ch, 1, 1000);
+            if (status == HAL_OK)
+            {
+                if (ch == '\r' || ch == '\n') // CR veya LF gelirse sonlandır
+                {
+                    ptr[i] = '\0';
+                    break;
+                }
+                ptr[i++] = ch;
+            }
+            else
+            {
+                // Hata veya zaman aşımı durumunda
+                ptr[i] = '\0';
+                fprintf(stderr, "UART read error: %d\r\n", status);
+                return i; // Alınan veriyi döndür veya 0
+            }
         }
-        ptr[i] = '\0'; // Null-terminate
+        ptr[i] = '\0';
         return i;
     }
     return 0;
 }
+
 
 
 /* USER CODE END 0 */
@@ -321,63 +341,37 @@ void gorev2(void const * argument)
 {
   /* USER CODE BEGIN 5 */
 
-	fprintf(stdout,"system initialized\r\n");
+    fprintf(stdout, "System initialized\r\n");
 
-	fprintf(stderr, "error\r\n");
+    for (;;)
+    {
+        memset(input, 0, sizeof(input));
+        fprintf(stdout, "> "); // Prompt
 
-  /* Infinite loop */
+        if (fgets(input, sizeof(input), stdin) != NULL)
+        {
+            input[strcspn(input, "\r\n")] = '\0'; // Satır sonunu temizle
 
-  for(;;)
-  {
+            if (strlen(input) == 1 && input[0] == 's')
+            {
+                fprintf(stdout, "Received 's'\r\n");
+            }
+            else if (strlen(input) > 0)
+            {
+                fprintf(stderr, "Invalid input: %s (length: %d)\r\n", input, strlen(input));
+            }
+            else
+            {
+                fprintf(stderr, "Empty input received\r\n");
+            }
+        }
+        else
+        {
+            fprintf(stderr, "Error reading input from fgets\r\n");
+        }
 
-	/*memset(input, 0, sizeof(input)); // diziyi sıfırla
-	fgets(input,sizeof(input),stdin);
-	input[strcspn(input, "\r\n")] = 0;
-	input[strcspn(input, "\r\n")] = '\0';
-
-	  HAL_UART_Receive(&huart2, (uint8_t*)&input, 1, HAL_MAX_DELAY);
-
-	if (strlen(input) == 1 && input[0] == 's')
-	     {
-	         fprintf(stdout, "s alındı\r\n");
-	     }
-	else if(strlen(input)>0)
-	     {
-	         fprintf(stderr, "gecersiz karakter: %s\r\n", input);
-	     }
-
-	osDelay(500);
-
-	  {*/
-	      fprintf(stdout, "UART fgets testi başladı\r\n");
-
-	      for (;;)
-	      {
-	          memset(input, 0, sizeof(input)); // diziyi sıfırla
-
-	          if (fgets(input, sizeof(input), stdin) != NULL)
-	          {
-	              input[strcspn(input, "\r\n")] = '\0'; // Satır sonunu temizle
-
-	              if (strcmp(input, "s") == 0)
-	              {
-	                  fprintf(stdout, "s alındı\r\n");
-	              }
-	              else
-	              {
-	                  fprintf(stderr, "geçersiz karakter: %s\r\n", input);
-	              }
-	          }
-	          else
-	          {
-	              fprintf(stderr, "Veri alınamadı\r\n");
-	          }
-
-	          osDelay(500);
-	      }
-  }
-
-
+        osDelay(10); // Daha hızlı tepki için 50ms -> 10ms
+    }
   /* USER CODE END 5 */
 }
 
@@ -395,8 +389,7 @@ void gorev1(void const * argument)
   for(;;)
   {
 
-	  printf("yasin\r\n");
-	  osDelay(500);
+	  osDelay(50);
   }
   /* USER CODE END gorev1 */
 }
