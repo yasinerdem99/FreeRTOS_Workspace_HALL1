@@ -15,7 +15,7 @@ extern SPI_HandleTypeDef hspi2;
 
 HAL_StatusTypeDef max24_SetCurrent_Spi(float current_mA);
 
-HAL_StatusTypeDef max24_xfer(SPI_HandleTypeDef *hspi,uint8_t *tx,uint8_t *rx, uint16_t len);
+HAL_StatusTypeDef max24_xfer(uint8_t *tx,uint8_t *rx, uint16_t len);
 
 
 #endif /* SRC_MAXREFDES24_H_ */

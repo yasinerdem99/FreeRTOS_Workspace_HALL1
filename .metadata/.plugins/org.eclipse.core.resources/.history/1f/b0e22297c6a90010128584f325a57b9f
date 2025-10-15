@@ -1,0 +1,52 @@
+/*
+ * maxrefdes24.c
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: stj.yerdem
+ *  @brief 4-ch, 16 bit analog current/voltage output
+ *  @description ALAMEDA(MAXREFDES24) high-accuracy digital-to-analog
+ *	converter (DAC) provides voltage outputs
+ *
+ */
+
+
+#include "maxrefdes24.h"
+
+HAL_StatusTypeDef max24_SetCurrent_Spi1(uint8_t *tx,uint8_t *rx, uint16_t len)
+{
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+
+	HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(&hspi1, tx, rx, len, HAL_MAX_DELAY);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+
+	return status;
+
+
+}
+
+HAL_StatusTypeDef max24_SetCurrent_Spi2(uint8_t *tx,uint8_t *rx, uint16_t len)
+{
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+
+	HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(&hspi2, tx, rx, len, HAL_MAX_DELAY);
+
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+
+	return status;
+}
+
+HAL_StatusTypeDef max24_xfer1(uint8_t *tx,uint8_t *rx, uint16_t len)
+{
+
+}
+
+HAL_StatusTypeDef max24_xfer2(uint8_t *tx,uint8_t *rx, uint16_t len)
+{
+
+}
+

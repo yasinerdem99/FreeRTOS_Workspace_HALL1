@@ -27,7 +27,7 @@ HAL_StatusTypeDef max24_xfer(SPI_HandleTypeDef *hspi,uint8_t *tx,uint8_t *rx, ui
 }
 
 
-HAL_StatusTypeDef max24_SetCurrent_Spi(float current_mA)
+HAL_StatusTypeDef max24_SetCurrent_Spi(uint8_t *tx,uint8_t *rx, uint16_t len)
 {
 
 }

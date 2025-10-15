@@ -1,26 +1,18 @@
-15:36:07 **** Incremental Build of configuration Debug for project 007_current_read ****
+16:05:17 **** Incremental Build of configuration Debug for project 007_current_read ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/maxrefdes24.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/maxrefdes24.d" -MT"Core/Src/maxrefdes24.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/maxrefdes24.o"
-../Core/Src/maxrefdes24.c:15:19: error: conflicting types for 'max24_SetCurrent_Spi1'; have 'HAL_StatusTypeDef(uint8_t *, uint8_t *, uint16_t)' {aka 'HAL_StatusTypeDef(unsigned char *, unsigned char *, short unsigned int)'}
-   15 | HAL_StatusTypeDef max24_SetCurrent_Spi1(uint8_t *tx,uint8_t *rx, uint16_t len)
-      |                   ^~~~~~~~~~~~~~~~~~~~~
-In file included from ../Core/Src/maxrefdes24.c:13:
-../Core/Src/maxrefdes24.h:16:19: note: previous declaration of 'max24_SetCurrent_Spi1' with type 'HAL_StatusTypeDef(float)'
-   16 | HAL_StatusTypeDef max24_SetCurrent_Spi1(float current_mA);
-      |                   ^~~~~~~~~~~~~~~~~~~~~
-../Core/Src/maxrefdes24.c:30:19: error: conflicting types for 'max24_SetCurrent_Spi2'; have 'HAL_StatusTypeDef(uint8_t *, uint8_t *, uint16_t)' {aka 'HAL_StatusTypeDef(unsigned char *, unsigned char *, short unsigned int)'}
-   30 | HAL_StatusTypeDef max24_SetCurrent_Spi2(uint8_t *tx,uint8_t *rx, uint16_t len)
-      |                   ^~~~~~~~~~~~~~~~~~~~~
-../Core/Src/maxrefdes24.h:17:19: note: previous declaration of 'max24_SetCurrent_Spi2' with type 'HAL_StatusTypeDef(float)'
-   17 | HAL_StatusTypeDef max24_SetCurrent_Spi2(float current_mA);
-      |                   ^~~~~~~~~~~~~~~~~~~~~
-../Core/Src/maxrefdes24.c: In function 'max24_xfer1':
-../Core/Src/maxrefdes24.c:46:1: warning: control reaches end of non-void function [-Wreturn-type]
-   46 | }
+../Core/Src/maxrefdes24.c: In function 'max24_SetCurrent_Spi':
+../Core/Src/maxrefdes24.c:33:1: warning: control reaches end of non-void function [-Wreturn-type]
+   33 | }
       | ^
-../Core/Src/maxrefdes24.c: In function 'max24_xfer2':
-../Core/Src/maxrefdes24.c:51:1: warning: control reaches end of non-void function [-Wreturn-type]
-   51 | }
-      | ^
-make: *** [Core/Src/subdir.mk:37: Core/Src/maxrefdes24.o] Error 1
-"make -j12 all" terminated with exit code 2. Build might be incomplete.
+arm-none-eabi-gcc -o "007_current_read.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\007_current_read\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007_current_read.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 007_current_read.elf
+ 
+arm-none-eabi-size  007_current_read.elf 
+arm-none-eabi-objdump -h -S 007_current_read.elf  > "007_current_read.list"
+   text	   data	    bss	    dec	    hex	filename
+   8536	     12	   1820	  10368	   2880	007_current_read.elf
+Finished building: default.size.stdout
+ 
+Finished building: 007_current_read.list
+ 
