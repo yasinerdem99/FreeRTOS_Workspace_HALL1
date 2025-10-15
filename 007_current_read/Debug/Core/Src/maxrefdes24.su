@@ -1,2 +1,4 @@
-../Core/Src/maxrefdes24.c:16:19:max24_xfer	40	static
-../Core/Src/maxrefdes24.c:30:19:max24_SetCurrent_Spi	16	static
+../Core/Src/maxrefdes24.c:16:17:max24_convertToDacCode	24	static
+../Core/Src/maxrefdes24.c:27:6:max24_init	24	static
+../Core/Src/maxrefdes24.c:42:19:max24_xfer	40	static
+../Core/Src/maxrefdes24.c:53:19:max24_setCurrent	24	static

@@ -3,32 +3,63 @@
  *
  *  Created on: Oct 15, 2025
  *      Author: stj.yerdem
- *  @brief 4-ch, 16 bit analog current/voltage output
- *  @description ALAMEDA(MAXREFDES24) high-accuracy digital-to-analog
- *	converter (DAC) provides voltage outputs
- *
+ *  @brief MAXREFDES24 4-CH Analog Output Module Driver
+ *  @description Manages communication and output control for
+ *               MAX5134 (DAC) and MAX15500 (current driver)
  */
-
 
 #include "maxrefdes24.h"
 
-
-HAL_StatusTypeDef max24_xfer(SPI_HandleTypeDef *hspi,uint8_t *tx,uint8_t *rx, uint16_t len)
+// ------------------------------
+// Yardımcı Fonksiyon: DAC Code
+// ------------------------------
+static uint16_t max24_convertToDacCode(float current_mA, float range_mA)
 {
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-
-	HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(&hspi2, tx, rx, len, HAL_MAX_DELAY);
-
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-
-	return status;
+    float ratio = (current_mA + range_mA) / (2 * range_mA);
+    if (ratio < 0.0f) ratio = 0.0f;
+    if (ratio > 1.0f) ratio = 1.0f;
+    return (uint16_t)(ratio * 0xFFFF);
 }
 
-
-HAL_StatusTypeDef max24_SetCurrent_Spi(float current_mA)
+// ------------------------------
+// Device Init
+// ------------------------------
+void max24_init(MAXREFDES24_Device *dev,
+                SPI_HandleTypeDef *hspi,
+                GPIO_TypeDef *cs_dac_port, uint16_t cs_dac_pin,
+                GPIO_TypeDef *cs_dc_port, uint16_t cs_dc_pin)
 {
-
+    dev->hspi = hspi;
+    dev->cs_dac_port = cs_dac_port;
+    dev->cs_dac_pin = cs_dac_pin;
+    dev->cs_dc_port = cs_dc_port;
+    dev->cs_dc_pin = cs_dc_pin;
 }
+
+// ------------------------------
+// SPI Transfer (Soyutlama Katmanı)
+// ------------------------------
+HAL_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev, uint8_t *tx, uint8_t *rx, uint16_t len)
+{
+    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_RESET);
+    HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(dev->hspi, tx, rx, len, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_SET);
+    return status;
+}
+
+// ------------------------------
+// Akım Ayarlama
+// ------------------------------
+HAL_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA)
+{
+    uint8_t txData[2];
+    uint8_t rxData[2];
+    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20 mA örnek aralık
+
+    txData[0] = (dacValue >> 8) & 0xFF;
+    txData[1] = dacValue & 0xFF;
+
+    return max24_xfer(dev, txData, rxData, 2);
+}
+
 

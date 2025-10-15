@@ -22,6 +22,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "maxrefdes24.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,6 +64,8 @@ static void MX_USART1_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+	MAXREFDES24_Device dev1, dev2;
+
 /* USER CODE END 0 */
 
 /**
@@ -97,6 +101,12 @@ int main(void)
   MX_SPI2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+   max24_init(&dev1, &hspi1, GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5);
+   max24_init(&dev2, &hspi2, GPIOB, GPIO_PIN_12, GPIOB, GPIO_PIN_13);
+
+   max24_setCurrent(&dev1, 10.0f);  // 10 mA gönder
+   max24_setCurrent(&dev2, -5.0f);  // -5 mA gönder
 
   /* USER CODE END 2 */
 

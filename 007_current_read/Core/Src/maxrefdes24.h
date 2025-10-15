@@ -3,6 +3,9 @@
  *
  *  Created on: Oct 15, 2025
  *      Author: stj.yerdem
+ *  @brief MAXREFDES24 4-CH Analog Output Module Driver
+ *  @description Provides SPI interface and current/voltage control functions
+ *               for MAXREFDES24 module (MAX15500 + MAX5134)
  */
 
 #ifndef SRC_MAXREFDES24_H_
@@ -10,13 +13,30 @@
 
 #include "stm32f4xx_hal.h"
 
-extern SPI_HandleTypeDef hspi1;
-extern SPI_HandleTypeDef hspi2;
+// ------------------------------
+// Device Yapısı
+// ------------------------------
+typedef struct {
+    SPI_HandleTypeDef *hspi;
+    GPIO_TypeDef *cs_dac_port;   // DAC (MAX5134)
+    uint16_t cs_dac_pin;
+    GPIO_TypeDef *cs_dc_port;    // DC/DC (MAX15500)
+    uint16_t cs_dc_pin;
+} MAXREFDES24_Device;
 
-HAL_StatusTypeDef max24_SetCurrent_Spi(float current_mA);
+// ------------------------------
+// Fonksiyon Prototipleri
+// ------------------------------
+void max24_init(MAXREFDES24_Device *dev,
+                SPI_HandleTypeDef *hspi,
+				GPIO_TypeDef *cs_dac_port, uint16_t cs_dac_pin,
+				GPIO_TypeDef *cs_dc_port, uint16_t cs_dc_pin
+				);
 
-HAL_StatusTypeDef max24_xfer(SPI_HandleTypeDef *hspi,uint8_t *tx,uint8_t *rx, uint16_t len);
+HAL_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev,
+                             uint8_t *tx, uint8_t *rx, uint16_t len);
 
-
+HAL_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA);
 
 #endif /* SRC_MAXREFDES24_H_ */
+
