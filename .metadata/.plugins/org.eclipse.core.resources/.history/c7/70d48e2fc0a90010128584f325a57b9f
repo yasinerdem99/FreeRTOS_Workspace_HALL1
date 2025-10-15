@@ -1,0 +1,26 @@
+/*
+ * maxrefdes24.c
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: stj.yerdem
+ *  @brief 4-ch, 16 bit analog current/voltage output
+ *  @description ALAMEDA(MAXREFDES24) high-accuracy digital-to-analog
+ *	converter (DAC) provides voltage outputs
+ *
+ */
+
+
+#include "maxrefdes24.h"
+
+void maxrefdes24_XFER()
+{
+
+}
+
+static void maxrefdes24_reset()
+{
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
+
+}

@@ -1,0 +1,13 @@
+/*
+ * maxrefdes24.h
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: stj.yerdem
+ */
+
+#ifndef SRC_MAXREFDES24_H_
+#define SRC_MAXREFDES24_H_
+
+#include "stm32f4xx_hal.h"
+
+#endif /* SRC_MAXREFDES24_H_ */

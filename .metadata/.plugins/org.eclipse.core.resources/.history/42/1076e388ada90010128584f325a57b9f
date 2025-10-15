@@ -1,0 +1,19 @@
+/*
+ * maxrefdes24.h
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: stj.yerdem
+ */
+
+#ifndef SRC_MAXREFDES24_H_
+#define SRC_MAXREFDES24_H_
+
+#include "stm32f4xx_hal.h"
+
+extern SPI_HandleTypeDef hspi1;
+extern SPI_HandleTypeDef hspi2;
+
+void maxrefdes24_XFER();
+
+
+#endif /* SRC_MAXREFDES24_H_ */
