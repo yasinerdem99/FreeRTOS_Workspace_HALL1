@@ -8,35 +8,25 @@
  *               for MAXREFDES24 module (MAX15500 + MAX5134)
  */
 
-#ifndef SRC_MAXREFDES24_H_
-#define SRC_MAXREFDES24_H_
+
+#ifndef MAXREFDES24_H_
+#define MAXREFDES24_H_
 
 #include "stm32f4xx_hal.h"
+#include "maxrefdes24_spi_stm.h"
+#include <stdint.h>
 
-// ------------------------------
-// Device Yapısı
-// ------------------------------
-typedef struct {
-    SPI_HandleTypeDef *hspi;
-    GPIO_TypeDef *cs_dac_port;   // DAC (MAX5134)
-    uint16_t cs_dac_pin;
-    GPIO_TypeDef *cs_dc_port;    // DC/DC (MAX15500)
-    uint16_t cs_dc_pin;
-} MAXREFDES24_Device;
+typedef enum
+{
+	MAX_OK       = 0x00U,
+	MAX_ERROR    = 0x01U,
+	MAX_BUSY     = 0x02U,
+	MAX_TIMEOUT  = 0x03U
+} MAX_StatusTypeDef;
 
-// ------------------------------
-// Fonksiyon Prototipleri
-// ------------------------------
-void max24_init(MAXREFDES24_Device *dev,
-                SPI_HandleTypeDef *hspi,
-				GPIO_TypeDef *cs_dac_port, uint16_t cs_dac_pin,
-				GPIO_TypeDef *cs_dc_port, uint16_t cs_dc_pin
-				);
+MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev,
+               uint8_t *tx, uint8_t *rx, uint16_t len);
 
-HAL_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev,
-                             uint8_t *tx, uint8_t *rx, uint16_t len);
-
-HAL_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA);
+MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA);
 
 #endif /* SRC_MAXREFDES24_H_ */
-

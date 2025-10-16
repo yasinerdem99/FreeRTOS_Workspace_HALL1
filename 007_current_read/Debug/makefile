@@ -60,8 +60,8 @@ all: main-build
 main-build: 007_current_read.elf secondary-outputs
 
 # Tool invocations
-007_current_read.elf 007_current_read.map: $(OBJS) $(USER_OBJS) C:\Users\LENOVO\Desktop\FreeRTOS_Workspace_new\007_current_read\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "007_current_read.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\LENOVO\Desktop\FreeRTOS_Workspace_new\007_current_read\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007_current_read.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+007_current_read.elf 007_current_read.map: $(OBJS) $(USER_OBJS) C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\007_current_read\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "007_current_read.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\007_current_read\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007_current_read.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

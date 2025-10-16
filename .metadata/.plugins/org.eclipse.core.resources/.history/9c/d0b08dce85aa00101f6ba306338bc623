@@ -1,0 +1,21 @@
+/*
+ * maxrefdes24_spi_stm.c
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: stj.yerdem
+ */
+
+
+#include "stm32f4xx_hal.h"
+#include "maxrefdes24.h"
+
+static void spi_xfer_stm(uint8_t *tx, uint8_t *rx, uint16_t len)
+{
+	HAL_SPI_TransmitReceive(&hspi1, tx, rx, len, HAL_MAX_DELAY);
+
+}
+
+static void cs_set_stm(int level)
+{
+
+}

@@ -1,17 +1,33 @@
-16:05:17 **** Incremental Build of configuration Debug for project 007_current_read ****
+16:14:39 **** Incremental Build of configuration Debug for project 007_current_read ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc "../Core/Src/maxrefdes24.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/maxrefdes24.d" -MT"Core/Src/maxrefdes24.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/maxrefdes24.o"
-../Core/Src/maxrefdes24.c: In function 'max24_SetCurrent_Spi':
-../Core/Src/maxrefdes24.c:33:1: warning: control reaches end of non-void function [-Wreturn-type]
-   33 | }
-      | ^
+arm-none-eabi-gcc "../Core/Src/maxrefdes24_spi_stm.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/maxrefdes24_spi_stm.d" -MT"Core/Src/maxrefdes24_spi_stm.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/maxrefdes24_spi_stm.o"
+In file included from ../Core/Src/maxrefdes24_spi_stm.h:15,
+                 from ../Core/Src/maxrefdes24_spi_stm.c:13:
+../Core/Src/maxrefdes24.h:27:30: error: unknown type name 'MAXREFDES24_Device'; did you mean 'MAXREFDES24_H_'?
+   27 | MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev,
+      |                              ^~~~~~~~~~~~~~~~~~
+      |                              MAXREFDES24_H_
+../Core/Src/maxrefdes24.h:30:36: error: unknown type name 'MAXREFDES24_Device'; did you mean 'MAXREFDES24_H_'?
+   30 | MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA);
+      |                                    ^~~~~~~~~~~~~~~~~~
+      |                                    MAXREFDES24_H_
+make: *** [Core/Src/subdir.mk:40: Core/Src/maxrefdes24_spi_stm.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+16:19:38 **** Incremental Build of configuration Debug for project 007_current_read ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/maxrefdes24.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/maxrefdes24.d" -MT"Core/Src/maxrefdes24.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/maxrefdes24.o"
+arm-none-eabi-gcc "../Core/Src/maxrefdes24_spi_stm.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/maxrefdes24_spi_stm.d" -MT"Core/Src/maxrefdes24_spi_stm.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/maxrefdes24_spi_stm.o"
 arm-none-eabi-gcc -o "007_current_read.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\007_current_read\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007_current_read.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: 007_current_read.elf
  
 arm-none-eabi-size  007_current_read.elf 
 arm-none-eabi-objdump -h -S 007_current_read.elf  > "007_current_read.list"
    text	   data	    bss	    dec	    hex	filename
-   8536	     12	   1820	  10368	   2880	007_current_read.elf
+  13796	    104	   2192	  16092	   3edc	007_current_read.elf
 Finished building: default.size.stdout
  
 Finished building: 007_current_read.list

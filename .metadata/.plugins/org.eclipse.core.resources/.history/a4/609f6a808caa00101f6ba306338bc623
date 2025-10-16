@@ -1,0 +1,13 @@
+/*
+ * maxrefdes24_spi_stm.h
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: stj.yerdem
+ */
+
+#ifndef SRC_MAXREFDES24_SPI_STM_H_
+#define SRC_MAXREFDES24_SPI_STM_H_
+
+
+
+#endif /* SRC_MAXREFDES24_SPI_STM_H_ */

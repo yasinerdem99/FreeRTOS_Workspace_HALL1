@@ -1,0 +1,45 @@
+/*
+ * maxrefdes24.h
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: stj.yerdem
+ *  @brief MAXREFDES24 4-CH Analog Output Module Driver
+ *  @description Provides SPI interface and current/voltage control functions
+ *               for MAXREFDES24 module (MAX15500 + MAX5134)
+ */
+
+#ifndef SRC_MAXREFDES24_H_
+#define SRC_MAXREFDES24_H_
+
+#include "stm32f4xx_hal.h"
+
+
+typedef enum
+{
+	MAX24_OK =0,
+	MAX24_ERROR
+
+}MAX24_Status;
+
+// ------------------------------
+// Device Configuration
+// ------------------------------
+typedef struct
+{
+	void (*spi_xfer)(uint8_t *tx, uint8_t *rx,uint16_t len);
+	void (*cs_set)(int level);
+
+} MAX24_HAL;
+
+typedef struct
+{
+	MAX24_HAL HAL;
+	float range_mA;
+
+} MAXREFDES24_Device;
+
+void max24_init(MAXREFDES24_Device *dev, MAX24_HAL hal);
+
+
+#endif /* SRC_MAXREFDES24_H_ */
+

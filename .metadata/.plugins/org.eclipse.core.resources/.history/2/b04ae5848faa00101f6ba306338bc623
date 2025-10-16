@@ -1,0 +1,50 @@
+/*
+ * maxrefdes24.h
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: stj.yerdem
+ *  @brief MAXREFDES24 4-CH Analog Output Module Driver
+ *  @description Provides SPI interface and current/voltage control functions
+ *               for MAXREFDES24 module (MAX15500 + MAX5134)
+ */
+
+// maxrefdes24.h
+
+#ifndef MAXREFDES24_H_
+#define MAXREFDES24_H_
+
+#include <stdint.h>
+
+typedef enum
+{
+	MAX_OK       = 0x00U,
+	MAX_ERROR    = 0x01U,
+	MAX_BUSY     = 0x02U,
+	MAX_TIMEOUT  = 0x03U
+} MAX_StatusTypeDef;
+
+// ------------------------------
+// Cihaz Yapısı
+// ------------------------------
+typedef struct {
+    void *hspi;                  // SPI arayüzü (platforma özgü)
+    void *cs_dac_port;          // DAC (MAX5134) Chip Select portu
+    uint16_t cs_dac_pin;
+    void *cs_dc_port;           // DC/DC (MAX15500) Chip Select portu
+    uint16_t cs_dc_pin;
+} MAXREFDES24_Device;
+
+// ------------------------------
+// Fonksiyon Prototipleri
+// ------------------------------
+void max24_init(MAXREFDES24_Device *dev,
+                void *hspi,
+                void *cs_dac_port, uint16_t cs_dac_pin,
+                void *cs_dc_port, uint16_t cs_dc_pin);
+
+MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev,
+               uint8_t *tx, uint8_t *rx, uint16_t len);
+
+MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA);
+
+#endif /* MAXREFDES24_H_ */

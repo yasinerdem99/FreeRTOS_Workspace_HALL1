@@ -8,7 +8,12 @@
  *               MAX5134 (DAC) and MAX15500 (current driver)
  */
 
+
+
 #include "maxrefdes24.h"
+#include "maxrefdes24_spi_stm.h" // STM32 HAL SPI/GPIO fonksiyonları
+
+
 
 // ------------------------------
 // Yardımcı Fonksiyon: DAC Code
@@ -22,44 +27,32 @@ static uint16_t max24_convertToDacCode(float current_mA, float range_mA)
 }
 
 // ------------------------------
-// Device Init
+// Cihaz Başlatma
 // ------------------------------
-void max24_init(MAXREFDES24_Device *dev,
-                SPI_HandleTypeDef *hspi,
-                GPIO_TypeDef *cs_dac_port, uint16_t cs_dac_pin,
-                GPIO_TypeDef *cs_dc_port, uint16_t cs_dc_pin)
-{
-    dev->hspi = hspi;
-    dev->cs_dac_port = cs_dac_port;
-    dev->cs_dac_pin = cs_dac_pin;
-    dev->cs_dc_port = cs_dc_port;
-    dev->cs_dc_pin = cs_dc_pin;
-}
+
 
 // ------------------------------
-// SPI Transfer (Soyutlama Katmanı)
+// SPI Transfer
 // ------------------------------
-HAL_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev, uint8_t *tx, uint8_t *rx, uint16_t len)
+MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev, uint8_t *tx, uint8_t *rx, uint16_t len)
 {
-    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_RESET);
-    HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(dev->hspi, tx, rx, len, HAL_MAX_DELAY);
-    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_SET);
+    max24_spi_select(dev->cs_dac_port, dev->cs_dac_pin);
+    MAX_StatusTypeDef status = max24_spi_xfer(dev->hspi, tx, rx, len);
+    max24_spi_deselect(dev->cs_dac_port, dev->cs_dac_pin);
     return status;
 }
 
 // ------------------------------
 // Akım Ayarlama
 // ------------------------------
-HAL_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA)
+MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA)
 {
     uint8_t txData[2];
     uint8_t rxData[2];
-    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20 mA örnek aralık
+    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20 mA aralık
 
     txData[0] = (dacValue >> 8) & 0xFF;
     txData[1] = dacValue & 0xFF;
 
     return max24_xfer(dev, txData, rxData, 2);
 }
-
-

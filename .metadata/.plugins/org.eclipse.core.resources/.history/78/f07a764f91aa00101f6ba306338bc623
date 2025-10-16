@@ -1,0 +1,37 @@
+/*
+ * maxrefdes24_spi_stm.h
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: stj.yerdem
+ */
+
+
+
+#ifndef MAXREFDES24_STM_SPI_H_
+#define MAXREFDES24_STM_SPI_H_
+
+#include <stdint.h>
+
+void max24_spi_select(void *port, uint16_t pin);
+void max24_spi_deselect(void *port, uint16_t pin);
+int max24_spi_xfer(void *hspi, uint8_t *tx, uint8_t *rx, uint16_t len);
+
+typedef struct
+{
+    SPI_HandleTypeDef *hspi;
+    GPIO_TypeDef *cs_dac_port;   // DAC (MAX5134)
+    uint16_t cs_dac_pin;
+    GPIO_TypeDef *cs_dc_port;    // DC/DC (MAX15500)
+    uint16_t cs_dc_pin;
+} MAXREFDES24_Device;
+// ------------------------------
+// Fonksiyon Prototipleri
+// ------------------------------
+void max24_init(MAXREFDES24_Device *dev,
+                SPI_HandleTypeDef *hspi,
+				GPIO_TypeDef *cs_dac_port, uint16_t cs_dac_pin,
+				GPIO_TypeDef *cs_dc_port, uint16_t cs_dc_pin
+				);
+
+#endif /* MAXREFDES24_STM_SPI_H_ */
+

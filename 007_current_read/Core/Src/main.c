@@ -23,6 +23,9 @@
 /* USER CODE BEGIN Includes */
 
 #include "maxrefdes24.h"
+#include "maxrefdes24_spi_stm.h"
+#include "stdio.h"
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -34,10 +37,27 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+#define RED  "\x1B[31m"
+#define GRN  "\x1B[32m"
+
+#define RST  "\033[0m"
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+
+#ifndef STDIN_FILENO
+#define STDIN_FILENO 0
+#endif
+
+#ifndef STDOUT_FILENO
+#define STDOUT_FILENO 1
+#endif
+
+#ifndef STDERR_FILENO
+#define STDERR_FILENO 2
+#endif
 
 /* USER CODE END PM */
 
@@ -65,6 +85,29 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 
 	MAXREFDES24_Device dev1, dev2;
+
+	int _write(int file, char *ptr, int len)
+	{
+		if(file==STDERR_FILENO)
+		{
+			HAL_UART_Transmit(&huart1, (uint8_t*)RED, strlen(RED) , HAL_MAX_DELAY);
+			HAL_UART_Transmit(&huart1, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+			HAL_UART_Transmit(&huart1, (uint8_t*)RST, strlen(RST) , HAL_MAX_DELAY);
+		}
+
+		else if(file==STDOUT_FILENO)
+		{
+			HAL_UART_Transmit(&huart1, (uint8_t*)GRN, strlen(GRN) , HAL_MAX_DELAY);
+			HAL_UART_Transmit(&huart1, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+			HAL_UART_Transmit(&huart1, (uint8_t*)RST, strlen(GRN) , HAL_MAX_DELAY);
+		}
+		else
+		{
+			HAL_UART_Transmit(&huart1, (uint8_t*)ptr, len , HAL_MAX_DELAY);
+
+		}
+		return len;
+	}
 
 /* USER CODE END 0 */
 
@@ -102,11 +145,13 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-   max24_init(&dev1, &hspi1, GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5);
-   max24_init(&dev2, &hspi2, GPIOB, GPIO_PIN_12, GPIOB, GPIO_PIN_13);
+   max24_init(&dev1, &hspi1, GPIOC, GPIO_PIN_5, GPIOC, GPIO_PIN_4);
+   max24_init(&dev2, &hspi2, GPIOB, GPIO_PIN_11, GPIOB, GPIO_PIN_10);
 
    max24_setCurrent(&dev1, 10.0f);  // 10 mA gönder
    max24_setCurrent(&dev2, -5.0f);  // -5 mA gönder
+
+   fprintf(stdin, "system started\r\n");
 
   /* USER CODE END 2 */
 
