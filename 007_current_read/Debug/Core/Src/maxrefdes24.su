@@ -1,3 +1,4 @@
 ../Core/Src/maxrefdes24.c:21:17:max24_convertToDacCode	24	static
 ../Core/Src/maxrefdes24.c:37:19:max24_xfer	32	static
-../Core/Src/maxrefdes24.c:48:19:max24_setCurrent	24	static
+../Core/Src/maxrefdes24.c:51:19:max24_setChannelCurrent	40	static
+../Core/Src/maxrefdes24.c:75:19:max24_enableOutput	24	static

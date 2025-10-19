@@ -45,14 +45,55 @@ MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev, uint8_t *tx, uint8_t *rx, 
 // ------------------------------
 // Akım Ayarlama
 // ------------------------------
-MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA)
+// -------------------------------------
+// Çok Kanallı Akım Ayarı (CH0..CH3)
+// -------------------------------------
+MAX_StatusTypeDef max24_setChannelCurrent(MAXREFDES24_Device *dev, uint8_t channel, float current_mA)
 {
-    uint8_t txData[2];
-    uint8_t rxData[2];
-    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20 mA aralık
+    if (channel > 3)
+        return MAX_ERROR;
 
-    txData[0] = (dacValue >> 8) & 0xFF;
-    txData[1] = dacValue & 0xFF;
+    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20mA range
+    uint8_t txData[3];
+    uint8_t rxData[3];
 
-    return max24_xfer(dev, txData, rxData, 2);
+    // MAX5134 komut formatı: 0x30 | channel
+    txData[0] = 0x30 | (channel & 0x03);
+    txData[1] = (dacValue >> 8) & 0xFF;
+    txData[2] = (dacValue) & 0xFF;
+
+    max24_spi_select(dev->cs_dac_port, dev->cs_dac_pin);
+    MAX_StatusTypeDef status = max24_spi_xfer(dev->hspi, txData, rxData, 3);
+    max24_spi_deselect(dev->cs_dac_port, dev->cs_dac_pin);
+
+    return status;
 }
+
+// -------------------------------------
+// DC/DC (MAX15500) ENABLE
+// -------------------------------------
+MAX_StatusTypeDef max24_enableOutput(MAXREFDES24_Device *dev)
+{
+    /* MAX15500 Enable/Config komutu (Current Mode, ±20mA) */
+    uint8_t tx[3];
+    uint8_t rx[3];
+
+    /* MAX15500 Control Register:
+     * Datasheet: CH enable + current mode + normal operation
+     *
+     * Örnek konfigürasyon (3 byte):
+     * 0x01 = Control Register write
+     * 0x00 = Safe defaults / channel mask (şimdilik tüm kanallar açık)
+     * 0x01 = Mode: Current Mode + Enable
+     */
+    tx[0] = 0x01;  // CONTROL REGISTER WRITE
+    tx[1] = 0x00;  // Tüm kanallar olarak açık (safe)
+    tx[2] = 0x01;  // Current Mode + Enable
+
+    max24_spi_select(dev->cs_dc_port, dev->cs_dc_pin);
+    MAX_StatusTypeDef status = max24_spi_xfer(dev->hspi, tx, rx, 3);
+    max24_spi_deselect(dev->cs_dc_port, dev->cs_dc_pin);
+
+    return status;
+}
+
