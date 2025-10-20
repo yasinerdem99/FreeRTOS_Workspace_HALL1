@@ -26,6 +26,10 @@ static uint16_t max24_convertToDacCode(float current_mA, float range_mA)
     return (uint16_t)(ratio * 0xFFFF);
 }
 
+// ------------------------------
+// Cihaz Başlatma
+// ------------------------------
+
 
 // ------------------------------
 // SPI Transfer
