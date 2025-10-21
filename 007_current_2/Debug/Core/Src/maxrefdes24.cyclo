@@ -1,0 +1,4 @@
+../Core/Src/maxrefdes24.c:18:6:max24_init	1
+../Core/Src/maxrefdes24.c:37:17:max24_convertToDacCode	3
+../Core/Src/maxrefdes24.c:48:19:max24_enableOutput	1
+../Core/Src/maxrefdes24.c:73:19:max24_setChannelCurrent	2
