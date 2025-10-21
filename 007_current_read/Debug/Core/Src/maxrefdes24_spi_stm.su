@@ -1,4 +1,4 @@
 ../Core/Src/maxrefdes24_spi_stm.c:12:6:max24_spi_select	16	static
 ../Core/Src/maxrefdes24_spi_stm.c:17:6:max24_spi_deselect	16	static
-../Core/Src/maxrefdes24_spi_stm.c:22:5:max24_spi_xfer	32	static
+../Core/Src/maxrefdes24_spi_stm.c:22:19:max24_spi_xfer	32	static
 ../Core/Src/maxrefdes24_spi_stm.c:28:6:max24_init	24	static

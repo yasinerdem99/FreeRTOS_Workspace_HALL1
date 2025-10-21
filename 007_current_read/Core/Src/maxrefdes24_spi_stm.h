@@ -16,7 +16,7 @@
 
 void max24_spi_select(void *port, uint16_t pin);
 void max24_spi_deselect(void *port, uint16_t pin);
-int max24_spi_xfer(void *hspi, uint8_t *tx, uint8_t *rx, uint16_t len);
+HAL_StatusTypeDef max24_spi_xfer(void *hspi, uint8_t *tx, uint8_t *rx, uint16_t len);
 
 typedef struct
 {
@@ -36,4 +36,3 @@ void max24_init(MAXREFDES24_Device *dev,
 				);
 
 #endif /* MAXREFDES24_STM_SPI_H_ */
-

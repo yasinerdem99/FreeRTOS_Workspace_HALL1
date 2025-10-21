@@ -5,3 +5,6 @@ status
 ch
 input
 ratio
+g_cmd_channel
+g_cmd_value
+g_cmd_valid

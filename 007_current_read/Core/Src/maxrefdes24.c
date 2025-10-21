@@ -9,10 +9,8 @@
  */
 
 
-
 #include "maxrefdes24.h"
 #include "maxrefdes24_spi_stm.h" // STM32 HAL SPI/GPIO fonksiyonları
-
 
 
 // ------------------------------
@@ -27,28 +25,51 @@ static uint16_t max24_convertToDacCode(float current_mA, float range_mA)
 }
 
 
-// ------------------------------
-// SPI Transfer
-// ------------------------------
-MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev, uint8_t *tx, uint8_t *rx, uint16_t len)
+// -------------------------------------
+// Çok Kanallı Akım Ayarı (CH0..CH3)
+// -------------------------------------
+MAX_StatusTypeDef max24_setChannelCurrent(MAXREFDES24_Device *dev, uint8_t channel, float current_mA)
 {
+    if (channel > 3)
+        return MAX_ERROR;
+
+    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20mA range
+    uint8_t txData[3];
+    uint8_t rxData[3];
+
+    // MAX5134 komut formatı: 0x30 | channel
+    txData[0] = 0x30 | (1 << channel);
+    txData[1] = (dacValue >> 8) & 0xFF;
+    txData[2] = (dacValue) & 0xFF;
+
     max24_spi_select(dev->cs_dac_port, dev->cs_dac_pin);
-    MAX_StatusTypeDef status = max24_spi_xfer(dev->hspi, tx, rx, len);
+    MAX_StatusTypeDef status = max24_spi_xfer(dev, txData, rxData, 3);
     max24_spi_deselect(dev->cs_dac_port, dev->cs_dac_pin);
+
     return status;
 }
 
-// ------------------------------
-// Akım Ayarlama
-// ------------------------------
-MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA)
+// -------------------------------------
+// DC/DC (MAX15500) ENABLE
+// -------------------------------------
+MAX_StatusTypeDef max24_enableOutput(MAXREFDES24_Device *dev)
 {
-    uint8_t txData[2];
-    uint8_t rxData[2];
-    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20 mA aralık
+    /* MAX15500 Enable/Config komutu (Current Mode, ±20mA) */
+    uint8_t tx[2];
+    uint8_t rx[2];
 
-    txData[0] = (dacValue >> 8) & 0xFF;
-    txData[1] = dacValue & 0xFF;
+    /* MAX15500 Control Register:
+     * Datasheet: CH enable + current mode + normal operation
+     *
+     *
+     */
 
-    return max24_xfer(dev, txData, rxData, 2);
+    tx[0] = 0x08;  // CONTROL REGISTER WRITE
+    tx[1] = 0x80;  // Tüm kanallar olarak açık (safe)
+
+    max24_spi_select(dev->cs_dc_port, dev->cs_dc_pin);
+    MAX_StatusTypeDef status = max24_spi_xfer(dev->hspi, tx, rx, 2);
+    max24_spi_deselect(dev->cs_dc_port, dev->cs_dc_pin);
+
+    return status;
 }

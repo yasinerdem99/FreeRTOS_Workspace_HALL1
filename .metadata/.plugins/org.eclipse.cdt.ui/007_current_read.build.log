@@ -1,18 +1,17 @@
-12:20:13 **** Incremental Build of configuration Debug for project 007_current_read ****
+07:40:01 **** Incremental Build of configuration Debug for project 007_current_read ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/maxrefdes24.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"C:/Users/stj.yerdem/Desktop/FreeRTOS_Workspace_HALL1/007_current_read/Core/Src" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/maxrefdes24.d" -MT"Core/Src/maxrefdes24.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/maxrefdes24.o"
 arm-none-eabi-gcc -o "007_current_read.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\stj.yerdem\Desktop\FreeRTOS_Workspace_HALL1\007_current_read\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007_current_read.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: 007_current_read.elf
  
 arm-none-eabi-size  007_current_read.elf 
 arm-none-eabi-objdump -h -S 007_current_read.elf  > "007_current_read.list"
    text	   data	    bss	    dec	    hex	filename
-  13796	    104	   2192	  16092	   3edc	007_current_read.elf
+  17744	    108	   2268	  20120	   4e98	007_current_read.elf
 Finished building: default.size.stdout
  
 Finished building: 007_current_read.list
  
 
-12:20:16 Build Finished. 0 errors, 0 warnings. (took 2s.447ms)
+07:40:03 Build Finished. 0 errors, 0 warnings. (took 2s.222ms)
 

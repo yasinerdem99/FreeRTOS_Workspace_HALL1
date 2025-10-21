@@ -1,0 +1,7 @@
+../Core/Src/uart_cmd.c:20:16:UART_ReadLine_Blocking	5
+../Core/Src/uart_cmd.c:37:16:checksum_xor	2
+../Core/Src/uart_cmd.c:44:13:process_packet	12
+../Core/Src/uart_cmd.c:103:6:UartCmd_Init	1
+../Core/Src/uart_cmd.c:113:6:UartCmd_Task	3
+../Core/Src/uart_cmd.c:126:5:__io_putchar	2
+../Core/Src/uart_cmd.c:134:6:Retarget_InitForPrintf	1

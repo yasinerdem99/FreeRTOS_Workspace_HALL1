@@ -26,6 +26,7 @@
 #include "maxrefdes24_spi_stm.h"
 #include "stdio.h"
 #include <string.h>
+#include "uart_cmd.h"
 
 /* USER CODE END Includes */
 
@@ -99,7 +100,7 @@ static void MX_USART1_UART_Init(void);
 		{
 			HAL_UART_Transmit(&huart1, (uint8_t*)GRN, strlen(GRN) , HAL_MAX_DELAY);
 			HAL_UART_Transmit(&huart1, (uint8_t*)ptr, len , HAL_MAX_DELAY);
-			HAL_UART_Transmit(&huart1, (uint8_t*)RST, strlen(GRN) , HAL_MAX_DELAY);
+			HAL_UART_Transmit(&huart1, (uint8_t*)RST, strlen(RST) , HAL_MAX_DELAY);
 		}
 		else
 		{
@@ -145,13 +146,31 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-   max24_init(&dev1, &hspi1, GPIOC, GPIO_PIN_5, GPIOC, GPIO_PIN_4);
-   max24_init(&dev2, &hspi2, GPIOB, GPIO_PIN_11, GPIOB, GPIO_PIN_10);
+    UartCmd_Init(&huart1);
 
-   max24_setCurrent(&dev1, 10.0f);  // 10 mA gönder
-   max24_setCurrent(&dev2, -5.0f);  // -5 mA gönder
 
-   fprintf(stdin, "system started\r\n");
+    Retarget_InitForPrintf(&huart1);
+
+
+    max24_init(&dev1,
+               &hspi1,
+               CS1_2_GPIO_Port, CS1_2_Pin, // DAC CS (Ör: GPIOC, GPIO_PIN_4)
+               CS1_1_GPIO_Port, CS1_1_Pin  // DC/DC CS (Ör: GPIOC, GPIO_PIN_5)
+               );
+
+    max24_enableOutput(&dev1);
+
+
+    max24_init(&dev2,
+               &hspi2,
+               CS2_2_GPIO_Port, CS2_2_Pin, // DAC CS (Ör: GPIOB, GPIO_PIN_12)
+               CS2_1_GPIO_Port, CS2_1_Pin  // DC/DC CS (Ör: GPIOB, GPIO_PIN_13)
+               );
+
+
+    max24_enableOutput(&dev2);
+
+
 
   /* USER CODE END 2 */
 
@@ -163,7 +182,24 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
+	  UartCmd_Task();
 
+	  if (g_cmd_valid)
+	      {
+	          uint8_t ch = g_cmd_channel;
+	          float current_mA = (float)g_cmd_value / 1000.0f;  // 10000 -> 10mA
+
+	          if (ch < 4)  // dev1
+	          {
+	              max24_setChannelCurrent(&dev1, ch, current_mA);
+	          }
+	          else        // dev2
+	          {
+	              max24_setChannelCurrent(&dev2, ch - 4, current_mA);
+	          }
+
+	          g_cmd_valid = 0;
+	      }
 
   }
   /* USER CODE END 3 */

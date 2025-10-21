@@ -24,8 +24,10 @@ typedef enum
 	MAX_TIMEOUT  = 0x03U
 } MAX_StatusTypeDef;
 
-MAX_StatusTypeDef max24_xfer(MAXREFDES24_Device *dev, uint8_t *tx, uint8_t *rx, uint16_t len);
 
-MAX_StatusTypeDef max24_setCurrent(MAXREFDES24_Device *dev, float current_mA);
+
+MAX_StatusTypeDef max24_setChannelCurrent(MAXREFDES24_Device *dev, uint8_t channel, float current_mA);
+
+MAX_StatusTypeDef max24_enableOutput(MAXREFDES24_Device *dev);
 
 #endif /* SRC_MAXREFDES24_H_ */
