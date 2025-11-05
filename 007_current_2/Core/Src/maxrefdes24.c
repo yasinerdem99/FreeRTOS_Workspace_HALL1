@@ -1,5 +1,4 @@
-/*
- * maxrefdes24.c
+/* maxrefdes24.c
  *
  * Created on: Oct 15, 2025
  * Author: stj.yerdem
@@ -48,21 +47,81 @@ static uint16_t max24_convertToDacCode(float current_mA, float range_mA)
 HAL_StatusTypeDef max24_enableOutput(MAXREFDES24_Device *dev)
 {
     uint8_t tx_buffer[2];
+    uint8_t tx_buffer_r[2];
+    HAL_StatusTypeDef status;
+    uint8_t i=0;
 
     /* * MAX15500 Kontrol Kaydı (Datasheet Tablo 5 & 6)
      * Komut: 0x0888 -> Adres[13:11]=001 (Write Config), Mod[9:7]=001 (Bipolar ±20mA), Termal[3]=1 (AÇIK)
      */
-    tx_buffer[0] = 0x08;
-    tx_buffer[1] = 0xF8;
+    tx_buffer[0] = 0x23;
+    tx_buffer[1] = 0x60;
+
+    tx_buffer_r[0] = 0x83;
+    tx_buffer_r[1] = 0x60;
+
 
     // MAX15500 CS pinini aktif et (LOW)
     HAL_GPIO_WritePin(dev->cs_dc_port, dev->cs_dc_pin, GPIO_PIN_RESET);
 
     // Komutu SPI üzerinden gönder (Sadece yazma)
-    HAL_StatusTypeDef status = HAL_SPI_Transmit(dev->hspi, tx_buffer, 2, HAL_MAX_DELAY);
+    for(i=0;i<4;i++)
+    {
+    	 status = HAL_SPI_Transmit(dev->hspi, tx_buffer, 2, HAL_MAX_DELAY);
+    }
+
+    i=0;
+    // MAX15500 CS pinini pasif yap (HIGH)
+    HAL_GPIO_WritePin(dev->cs_dc_port, dev->cs_dc_pin, GPIO_PIN_SET);
+
+    HAL_Delay(15);
+
+    HAL_GPIO_WritePin(dev->cs_dc_port, dev->cs_dc_pin, GPIO_PIN_RESET);
+
+    // Komutu SPI üzerinden gönder (Sadece yazma)
+    for(i=0;i<4;i++)
+    {
+    	 status = HAL_SPI_Transmit(dev->hspi, tx_buffer_r, 2, HAL_MAX_DELAY);
+    }
+
+    HAL_Delay(15);
 
     // MAX15500 CS pinini pasif yap (HIGH)
     HAL_GPIO_WritePin(dev->cs_dc_port, dev->cs_dc_pin, GPIO_PIN_SET);
+
+    uint8_t dac_config[3];
+
+    // MAX5134 "Write-through" komutunu ve veriyi oluştur
+    dac_config[0] = 0x05;
+    dac_config[1] = 0x02;
+	dac_config[2] = 0x00;
+
+    // MAX5134 CS pinini aktif et (LOW)
+    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_RESET);
+
+    // Komutu ve veriyi SPI üzerinden gönder (Sadece yazma)
+    status = HAL_SPI_Transmit(dev->hspi, dac_config, 3, HAL_MAX_DELAY);
+
+    // MAX5134 CS pinini pasif yap (HIGH)
+    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_SET);
+
+    HAL_Delay(15);
+
+    uint8_t dac_config_1[3];
+
+    // MAX5134 "Write-through" komutunu ve veriyi oluştur
+    dac_config_1[0] = 0x05;
+    dac_config_1[1] = 0x00;
+	dac_config_1[2] = 0x00;
+
+    // MAX5134 CS pinini aktif et (LOW)
+    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_RESET);
+
+    // Komutu ve veriyi SPI üzerinden gönder (Sadece yazma)
+    status = HAL_SPI_Transmit(dev->hspi, dac_config_1, 3, HAL_MAX_DELAY);
+
+    // MAX5134 CS pinini pasif yap (HIGH)
+    HAL_GPIO_WritePin(dev->cs_dac_port, dev->cs_dac_pin, GPIO_PIN_SET);
 
     return status;
 }
@@ -76,7 +135,7 @@ HAL_StatusTypeDef max24_setChannelCurrent(MAXREFDES24_Device *dev, uint8_t chann
         return HAL_ERROR; // Geçersiz kanal numarası
     }
 
-    uint16_t dacValue = max24_convertToDacCode(current_mA, 20.0f); // ±20mA aralığı
+    uint16_t dacValue = max24_convertToDacCode(current_mA, 24.27f); // ±20mA aralığı
     uint8_t tx_buffer[3];
 
     // MAX5134 "Write-through" komutunu ve veriyi oluştur
