@@ -26,6 +26,7 @@
 #include "stdio.h"
 #include <string.h>
 #include "uart_cmd.h"
+#include "ac_signal.h"
 
 /* USER CODE END Includes */
 
@@ -65,10 +66,16 @@
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
 
+TIM_HandleTypeDef htim6;
+
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
+extern volatile int g_cmd_channel;
+extern volatile int g_cmd_value;
+extern volatile int g_cmd_freq;
+extern volatile uint8_t g_cmd_valid;
 
 
 /* USER CODE END PV */
@@ -79,6 +86,7 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_TIM6_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -145,6 +153,7 @@ int main(void)
   MX_SPI1_Init();
   MX_SPI2_Init();
   MX_USART1_UART_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
     UartCmd_Init(&huart1);
@@ -171,6 +180,8 @@ int main(void)
 
     max24_enableOutput(&dev2);
 
+    AC_Signal_Init(&htim6, &dev2, 1);
+
 
 
   /* USER CODE END 2 */
@@ -187,30 +198,46 @@ int main(void)
 	  UartCmd_Task();
 
 	  if (g_cmd_valid)
-	  	  {
-	            uint8_t ch = g_cmd_channel;
-	            // Convert value (e.g., 10000) to float mA (e.g., 10.0)
-	            float current_mA = (float)g_cmd_value / 1000.0f;
+	          {
+	              uint8_t ch = g_cmd_channel;
+	              int val = g_cmd_value;
+	              int freq = g_cmd_freq;
 
-	            // Route command to the correct device based on channel number
-	            if (ch < 4)  // Channels 0-3 belong to dev1
-	            {
-	              max24_setChannelCurrent(&dev1, ch, current_mA);
-
-
-
-	            }
-	            else if (ch < 5) // Channels 4-7 belong to dev2 (mapped to 0-3)
-	            {
-	                uint8_t dev2_ch = ch - 4; // Map channel 4-7 to 0-3 for dev2
-
-	                max24_setChannelCurrent(&dev2, dev2_ch, current_mA);
-
-	            }
+	              // Kanalları 0-4 (DC) ve 5 (AC) olarak ayır
+	              if (ch < 5)
+	              {
+	                  // DC KANAL (0, 1, 2, 3, veya 4)
 
 
-	            g_cmd_valid = 0; // Reset command valid flag
-	  	  }
+	                  float current_mA = (float)val / 1000.0f;
+
+	                  if (ch < 4) // Kanallar 0-3 -> dev1
+	                  {
+	                      max24_setChannelCurrent(&dev1, ch, current_mA);
+	                  }
+	                  else // ch == 4 -> dev2 (kanal 0)
+	                  {
+	                      max24_setChannelCurrent(&dev2, 0, current_mA);
+	                  }
+
+
+	              }
+	              else if (ch == 5)
+	              {
+	                  // AC KANAL (5)
+
+	                  // 'val' (örn: 10000) -> 10.0f Amplitüd (mA)
+	                  // 'freq' (örn: 100) -> 100 Hz Frekans
+	                  float amplitude_mA = (float)val / 1000.0f;
+
+	                  // AC sinyal üretecini yeni parametrelerle başlat
+	                  AC_Signal_Start(amplitude_mA, freq);
+
+
+	              }
+
+	              g_cmd_valid = 0; // Komut işlendi, bayrağı sıfırla
+	          }
 
 	        // Add a small delay or other tasks if needed
 	        // HAL_Delay(1);
@@ -337,6 +364,44 @@ static void MX_SPI2_Init(void)
   /* USER CODE BEGIN SPI2_Init 2 */
 
   /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
+  * @brief TIM6 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM6_Init(void)
+{
+
+  /* USER CODE BEGIN TIM6_Init 0 */
+
+  /* USER CODE END TIM6_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM6_Init 1 */
+
+  /* USER CODE END TIM6_Init 1 */
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 0;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 65535;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM6_Init 2 */
+
+  /* USER CODE END TIM6_Init 2 */
 
 }
 

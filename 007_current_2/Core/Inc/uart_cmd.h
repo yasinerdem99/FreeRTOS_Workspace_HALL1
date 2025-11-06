@@ -11,6 +11,7 @@ extern "C" {
 /* Live Expression için izlemesi kolay globaller */
 extern volatile int g_cmd_channel;   // 0..7
 extern volatile int g_cmd_value;     // örn. 10000 -> 10 mA
+extern volatile int g_cmd_freq;
 extern volatile uint8_t g_cmd_valid; // 1: son paket OK, 0: fail
 extern volatile uint8_t g_cs_calc;   // hesaplanan checksum
 extern volatile uint8_t g_cs_recv;   // gelen checksum

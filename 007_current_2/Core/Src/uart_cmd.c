@@ -11,6 +11,7 @@ static char rx_buf[RX_BUF_SIZE];
 /* Live Expression değişkenleri */
 volatile int g_cmd_channel = -1;
 volatile int g_cmd_value   =  0;
+volatile int g_cmd_freq    =  0;
 volatile uint8_t g_cmd_valid = 0;
 volatile uint8_t g_cs_calc = 0;
 volatile uint8_t g_cs_recv = 0;
@@ -81,6 +82,8 @@ static void process_packet(const char *msg)
     char *cmd = strtok(temp, ",");
     char *x   = strtok(NULL, ",");
     char *y   = strtok(NULL, ",");
+    char *z   = strtok(NULL, ",");
+
 
     if (!cmd || !x || !y) { g_cmd_valid = 0; return; }
 
@@ -89,13 +92,19 @@ static void process_packet(const char *msg)
 
     int ch = atoi(x);
     int val = atoi(y);
+    int freq = 0;
+    if (z != NULL)
+        {
+            freq = atoi(z);
+        }
 
     /* Basit sınama (gerekirse sıkılaştır) */
-    if (ch < 0 || ch > 7) { g_cmd_valid = 0; return; }
+    if (ch < 0 || ch > 5) { g_cmd_valid = 0; return; }
 
     g_cmd_channel = ch;
     g_cmd_value   = val;
     g_cmd_valid   = 1;
+    g_cmd_freq    = freq;
 }
 
 /* --- Dış arayüz --- */
@@ -105,6 +114,7 @@ void UartCmd_Init(UART_HandleTypeDef *huart)
     s_huart = huart;
     g_cmd_channel = -1;
     g_cmd_value = 0;
+    g_cmd_freq = 0;
     g_cmd_valid = 0;
     g_cs_calc = 0;
     g_cs_recv = 0;
