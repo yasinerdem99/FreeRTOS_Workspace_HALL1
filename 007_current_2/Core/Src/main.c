@@ -43,6 +43,8 @@
 
 #define RST  "\033[0m"
 
+#define MAX_SAFE_FREQUENCY 1001
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -230,8 +232,8 @@ int main(void)
 	                  // 'freq' (örn: 100) -> 100 Hz Frekans
 	                  float amplitude_mA = (float)val / 1000.0f;
 
-	                  // AC sinyal üretecini yeni parametrelerle başlat
-	                  AC_Signal_Start(amplitude_mA, freq);
+	                  if(MAX_SAFE_FREQUENCY > freq)// AC sinyal üretecini yeni parametrelerle başlat
+	                   AC_Signal_Start(amplitude_mA, freq);
 
 
 	              }
